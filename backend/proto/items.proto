@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package items;
+
+service ItemsService {
+  rpc Listar (ListarRequest) returns (ListarResponse);
+}
+
+message ListarRequest {
+  // Pode ficar vazio ou adicionar filtros futuros
+}
+
+message Item {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string createdAt = 4;
+}
+
+message ListarResponse {
+  repeated Item items = 1;
+}

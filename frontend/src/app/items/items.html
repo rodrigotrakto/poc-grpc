@@ -3,12 +3,15 @@
     <!-- Coluna esquerda: HTTP -->
     <div class="items-column">
       <div class="column-header">
-        <h2>
-          Itens (HTTP) <span style="font-size: 0.8em; color: #666">(mostrando 10 primeiros)</span>
-        </h2>
-        @if (httpLoading) {
-        <div style="padding: 10px; text-align: center; color: #666">⏳ Carregando...</div>
-        } @if (httpMetrics) {
+        <h2>Itens (HTTP)</h2>
+        <div class="status-message">
+          @if (httpLoading) {
+            <span>⏳ Carregando...</span>
+          } @else {
+            <span>✅ Carregado</span>
+          }
+        </div>
+        @if (httpMetrics) {
         <div class="metrics-panel">
           <div class="metric-item">
             <span class="metric-label">⏱️ Tempo:</span>
@@ -28,18 +31,33 @@
           </div>
         </div>
         }
+        <button
+          class="reload-button"
+          (click)="loadHttp()"
+          [disabled]="httpLoading"
+          title="Recarregar requisição HTTP"
+        >
+          @if (httpLoading) {
+            ⏳ Carregando...
+          } @else {
+            🔄 Recarregar
+          }
+        </button>
       </div>
     </div>
 
     <!-- Coluna direita: gRPC -->
     <div class="items-column">
       <div class="column-header">
-        <h2>
-          Itens (gRPC) <span style="font-size: 0.8em; color: #666">(mostrando 10 primeiros)</span>
-        </h2>
-        @if (grpcLoading) {
-        <div style="padding: 10px; text-align: center; color: #666">⏳ Carregando...</div>
-        } @if (grpcMetrics) {
+        <h2>Itens (gRPC)</h2>
+        <div class="status-message">
+          @if (grpcLoading) {
+            <span>⏳ Carregando...</span>
+          } @else {
+            <span>✅ Carregado</span>
+          }
+        </div>
+        @if (grpcMetrics) {
         <div class="metrics-panel">
           <div class="metric-item">
             <span class="metric-label">⏱️ Tempo:</span>
@@ -59,6 +77,18 @@
           </div>
         </div>
         }
+        <button
+          class="reload-button"
+          (click)="loadGrpc()"
+          [disabled]="grpcLoading"
+          title="Recarregar requisição gRPC"
+        >
+          @if (grpcLoading) {
+            ⏳ Carregando...
+          } @else {
+            🔄 Recarregar
+          }
+        </button>
       </div>
     </div>
 
@@ -157,6 +187,7 @@
 
     <!-- Lista de itens HTTP -->
     <div class="items-column">
+      <p class="items-subtitle">(mostrando os 10 primeiros)</p>
       @if (items.length > 0) {
       <ul class="items-list">
         @for (item of items; track item.id) {
@@ -180,6 +211,7 @@
 
     <!-- Lista de itens gRPC -->
     <div class="items-column">
+      <p class="items-subtitle">(mostrando os 10 primeiros)</p>
       @if (itemsGrpc.length > 0) {
       <ul class="items-list">
         @for (item of itemsGrpc; track item.id) {

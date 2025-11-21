@@ -25,9 +25,15 @@ export class Items implements OnInit {
   }
 
   ngOnInit() {
-    // Iniciar ambas as requisições simultaneamente
+    this.loadHttp();
+    this.loadGrpc();
+  }
+
+  loadHttp() {
+    // Iniciar requisição HTTP
     const startTime = performance.now();
-    console.log('🚀 Iniciando requisições HTTP e gRPC simultaneamente...');
+    console.log('🚀 Iniciando requisição HTTP...');
+    this.httpLoading = true;
 
     // Buscar items via HTTP com métricas
     this.itemsService.getItemsWithMetrics().subscribe({
@@ -44,6 +50,13 @@ export class Items implements OnInit {
         this.httpLoading = false;
       }
     });
+  }
+
+  loadGrpc() {
+    // Iniciar requisição gRPC
+    const startTime = performance.now();
+    console.log('🚀 Iniciando requisição gRPC...');
+    this.grpcLoading = true;
 
     // Buscar items via gRPC com métricas
     this.grpcItemsService.listarWithMetrics().then((result) => {

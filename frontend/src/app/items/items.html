@@ -1,23 +1,53 @@
 <div class="items-container">
-  <h2>Itens</h2>
+  <div class="items-grid">
+    <!-- Coluna esquerda: HTTP -->
+    <div class="items-column">
+      <h2>Itens (HTTP)</h2>
 
-  @if (items.length > 0) {
-  <ul class="items-list">
-    @for (item of items; track item.id) {
-    <li class="item-card">
-      <div class="item-header">
-        <h3>{{ item.name }}</h3>
-        <span class="item-id">#{{ item.id }}</span>
-      </div>
-      @if (item.description) {
-      <p class="item-description">{{ item.description }}</p>
-      } @if (item.createdAt) {
-      <p class="item-date">Criado em: {{ item.createdAt | date : 'dd/MM/yyyy HH:mm' }}</p>
+      @if (items.length > 0) {
+      <ul class="items-list">
+        @for (item of items; track item.id) {
+        <li class="item-card">
+          <div class="item-header">
+            <h3>{{ item.name }}</h3>
+            <span class="item-id">#{{ item.id }}</span>
+          </div>
+          @if (item.description) {
+          <p class="item-description">{{ item.description }}</p>
+          } @if (item.createdAt) {
+          <p class="item-date">Criado em: {{ item.createdAt | date : 'dd/MM/yyyy HH:mm' }}</p>
+          }
+        </li>
+        }
+      </ul>
+      } @else {
+      <p>Nenhum item encontrado.</p>
       }
-    </li>
-    }
-  </ul>
-  } @else {
-  <p>Nenhum item encontrado.</p>
-  }
+    </div>
+
+    <!-- Coluna direita: gRPC -->
+    <div class="items-column">
+      <h2>Itens (gRPC)</h2>
+
+      @if (itemsGrpc.length > 0) {
+      <ul class="items-list">
+        @for (item of itemsGrpc; track item.id) {
+        <li class="item-card">
+          <div class="item-header">
+            <h3>{{ item.name }}</h3>
+            <span class="item-id">#{{ item.id }}</span>
+          </div>
+          @if (item.description) {
+          <p class="item-description">{{ item.description }}</p>
+          } @if (item.createdAt) {
+          <p class="item-date">Criado em: {{ item.createdAt | date : 'dd/MM/yyyy HH:mm' }}</p>
+          }
+        </li>
+        }
+      </ul>
+      } @else {
+      <p>Nenhum item encontrado.</p>
+      }
+    </div>
+  </div>
 </div>
